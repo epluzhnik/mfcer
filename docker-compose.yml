@@ -1,0 +1,22 @@
+services:
+  backend:
+    build:
+      context: .
+    environment:
+      - "EMBEDDING_MODEL_PATH=/code/resources/embeddings_ru"
+      - "INIT_QA_DOCUMENTS=/code/resources/qa_documents.csv"
+      - "SEARCH_KEY=question"
+      - "DEFAULT_TOP_K=5"
+    ports:
+      - "8000:8000"
+    tty: true
+    stdin_open: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
+        limits:
+          memory: 15000M
