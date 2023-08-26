@@ -13,7 +13,7 @@ app = FastAPI()
 
 @app.post("/answer")
 async def read_root(request: AnswerRequest):
-    return {[{"question": 'вопрос', "answer": 'ответ'}]}
+    return [{"question": 'вопрос', "answer": 'ответ'}]
 
 
 # Press the green button in the gutter to run the script.
