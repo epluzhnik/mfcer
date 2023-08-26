@@ -6,7 +6,7 @@ import uvicorn
 
 from fastapi import FastAPI
 
-from src.models import AnswerRequest
+from app.src.models import AnswerRequest
 
 app = FastAPI()
 
