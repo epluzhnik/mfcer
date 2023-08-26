@@ -6,7 +6,7 @@ WORKDIR /code
 
 COPY ./resources /code/resources
 
-RUN unzip /code/resources/embeddings_ru.zip -d /code/resources/ && rm -f /code/resources/embeddings_ru.zip
+#RUN unzip /code/resources/embeddings_ru.zip -d /code/resources/ && rm -f /code/resources/embeddings_ru.zip
 
 COPY ./requirements.txt /code/requirements.txt
 

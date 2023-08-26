@@ -3,7 +3,7 @@ services:
     build:
       context: .
     environment:
-      - "EMBEDDING_MODEL_PATH=/code/resources/embeddings_ru"
+      - "EMBEDDING_MODEL_PATH=ai-forever/sbert_large_nlu_ru"
       - "INIT_QA_DOCUMENTS=/code/resources/qa_documents.csv"
       - "SEARCH_KEY=question"
       - "DEFAULT_TOP_K=5"
