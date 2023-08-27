@@ -3,6 +3,8 @@
 ```sh
 docker compose up -d  
 ```
+> ! Придется немного подождать загрузки модели
+
 OR
 ```sh
 docker build -t mfcer . 
