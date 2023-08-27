@@ -6,7 +6,7 @@ services:
       - "EMBEDDING_MODEL_PATH=/code/resources/embeddings_ru"
       - "INIT_QA_DOCUMENTS=/code/resources/train_dataset_all.csv"
       - "SEARCH_KEY=question_lemma"
-      - "DEFAULT_TOP_K=5"
+      - "DEFAULT_TOP_K=10"
       - "ANSWER_THRESHOLD=0.53"
     ports:
       - "8000:8000"

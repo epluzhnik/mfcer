@@ -1,10 +1,8 @@
 FROM pytorch/pytorch:2.0.1-cuda11.7-cudnn8-runtime
 
-RUN apt-get update && apt-get install unzip -y
+RUN apt-get update && apt-get install git -y
 
 WORKDIR /code
-
-#COPY ./resources /code/resources
 
 COPY ./requirements.txt /code/requirements.txt
 
