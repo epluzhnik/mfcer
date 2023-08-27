@@ -1,12 +1,15 @@
 import logging
 import os
+
+import fastapi
 import uvicorn
 import pandas as pd
 
 from fastapi import FastAPI
 
-from app.src.models import AnswerRequest, AnswerResponse
+from app.src.models import AnswerRequest, AnswerResponse, QARequest, AnswerFrequency
 from app.src.search import EmbeddingSimilaritySearch
+app = FastAPI()
 
 logging.basicConfig(level=logging.INFO)
 
@@ -16,7 +19,7 @@ MODEL_PATH = os.getenv('EMBEDDING_MODEL_PATH')
 TOP_K = int(os.getenv('DEFAULT_TOP_K'))
 ANSWER_THRESHOLD = float(os.getenv('ANSWER_THRESHOLD'))
 
-app = FastAPI()
+
 search = EmbeddingSimilaritySearch(model_name_or_path=MODEL_PATH, answer_threshold=ANSWER_THRESHOLD)
 
 
@@ -33,6 +36,33 @@ async def read_root(request: AnswerRequest) -> AnswerResponse:
 
 
 populate_search(qa_df_path=INIT_QA_DOCUMENTS)
+
+
+metrics: dict[str, AnswerFrequency] = {}
+
+
+@app.post("/metrics")
+async def post_metrics(request: QARequest) -> fastapi.Response:
+    if request.question in metrics.keys():
+        metrics[request.question].frequency += 1
+    else:
+        metrics[request.question] = AnswerFrequency(1, request.answer, request.question)
+
+    return fastapi.Response(status_code=200)
+
+@app.post("/metrics/answer")
+async def post_metrics(request: AnswerRequest) -> fastapi.Response:
+    if request.question in metrics:
+        return metrics[request.question].answer
+    else:
+        return fastapi.Response(status_code=404)
+
+@app.get("/metrics")
+async def get_metrics() -> [AnswerFrequency]:
+    questions = sorted(metrics.values(), key=lambda item: item.frequency, reverse=True)
+
+    return questions[:5]
+
 
 if __name__ == '__main__':
     uvicorn.run(app, host="0.0.0.0", port=8000)
