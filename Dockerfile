@@ -10,4 +10,6 @@ RUN pip install --upgrade pip && pip install --no-cache-dir --upgrade -r /code/r
 
 COPY ./app /code/app
 
+COPY front.py /code/app/front.py
+
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
