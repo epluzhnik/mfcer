@@ -4,11 +4,14 @@ services:
       context: .
     environment:
       - "EMBEDDING_MODEL_PATH=ai-forever/sbert_large_nlu_ru"
-      - "INIT_QA_DOCUMENTS=/code/resources/qa_documents.csv"
-      - "SEARCH_KEY=question"
+      - "INIT_QA_DOCUMENTS=/code/resources/train_dataset_all.csv"
+      - "SEARCH_KEY=question_lemma"
       - "DEFAULT_TOP_K=5"
+      - "ANSWER_THRESHOLD=0.53"
     ports:
       - "8000:8000"
+    volumes:
+      - "./resources:/code/resources"
     tty: true
     stdin_open: true
     deploy:

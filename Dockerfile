@@ -4,9 +4,7 @@ RUN apt-get update && apt-get install unzip -y
 
 WORKDIR /code
 
-COPY ./resources /code/resources
-
-#RUN unzip /code/resources/embeddings_ru.zip -d /code/resources/ && rm -f /code/resources/embeddings_ru.zip
+#COPY ./resources /code/resources
 
 COPY ./requirements.txt /code/requirements.txt
 

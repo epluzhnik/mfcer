@@ -1,10 +1,9 @@
+import logging
 from copy import deepcopy
 
 import torch
 from pydantic import BaseModel
 from sentence_transformers import SentenceTransformer, util
-
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -15,10 +14,12 @@ class SearchCandidate(BaseModel):
 
 
 class EmbeddingSimilaritySearch:
-    def __init__(self, model_name_or_path: str):
+    def __init__(self, model_name_or_path: str, answer_threshold: float):
         logger.info('Loading model...')
 
         self._model = SentenceTransformer(model_name_or_path)
+        self._answer_threshold = answer_threshold
+
         self._embeddings = None
         self._data = None
 
@@ -41,6 +42,5 @@ class EmbeddingSimilaritySearch:
 
         return [
             SearchCandidate(similarity=similarity, candidate=self._data[index]) for similarity, index in
-            zip(*top_results)
+            zip(*top_results) if similarity > self._answer_threshold
         ]
-
