@@ -4,8 +4,8 @@ services:
       context: .
     environment:
       - "EMBEDDING_MODEL_PATH=/code/resources/embeddings_ru"
-      - "INIT_QA_DOCUMENTS=/code/resources/train_dataset_all.csv"
-      - "SEARCH_KEY=question_lemma"
+      - "INIT_QA_DOCUMENTS=/code/resources/qa_final.csv"
+      - "SEARCH_KEY=question_key"
       - "DEFAULT_TOP_K=10"
       - "ANSWER_THRESHOLD=0.53"
     ports:
