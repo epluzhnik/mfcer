@@ -92,24 +92,12 @@ with st.container():
     # st.info(selected_value)
 
 col1, col2, col3, col4, col5 = st.columns(5)
+metrica = getMetrica()
 
-with col1:
-    st.info(getMetrica()[0])
-
-with col2:
-    st.info(getMetrica()[1])
-
-with col3:
-    st.info(getMetrica()[2])
-
-with col4:
-    st.info(getMetrica()[3])
-
-with col5:
-    st.info(getMetrica()[4])
-
-
-
+for col, idx in zip([col1, col2, col3, col4, col5], range(5)):
+    with col:
+        if len(metrica) > idx:
+            st.info(metrica[idx])
 
 
 def main():
